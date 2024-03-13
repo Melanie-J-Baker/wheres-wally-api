@@ -22,8 +22,9 @@ const limiter = RateLimit({
 
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
-
-const mongoDB = process.env.MONGODB_URI || process.env.MONGODB_URI_DEV;
+const devDbURL =
+  "mongodb+srv://bakermel:THu7zgEbHovjfnEN@cluster0.qixgpia.mongodb.net/wheres-wally-api-dev?retryWrites=true&w=majority&appName=Cluster0";
+const mongoDB = process.env.MONGODB_URI || devDbURL;
 main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(mongoDB);

@@ -59,7 +59,7 @@ async function createCharacters() {
   await Promise.all([
     characterCreate(0, "Wally", "../../images/wally.jpeg", 46, 43),
     characterCreate(1, "Wendy", "../../images/wendy.jpeg", 32, 27),
-    characterCreate(2, "Oddlaw", "../../images/oddlaw.jpeg", 100, 100),
-    characterCreate(3, "Wizard", "../../images/wizard.jpeg", 3, 54),
+    characterCreate(2, "Oddlaw", "../../images/oddlaw.jpeg", 3, 54),
+    characterCreate(3, "Wizard", "../../images/wizard.jpeg", 96, 37),
   ]);
 }
