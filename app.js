@@ -43,7 +43,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-//app.use(cors());
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
