@@ -2,7 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const Game = require("../models/game");
 
-exports.get_game = asyncHandler(async (req, res, next) => {
+exports.get_game = asyncHandler(async (req, res) => {
   // delete all games that are unplayed and older than a few minutes or so
   const unfinishedGames = await Game.find({ end_time: 0 }).exec();
   unfinishedGames.filter((game) => {
@@ -13,13 +13,13 @@ exports.get_game = asyncHandler(async (req, res, next) => {
   res.json(finishedGames);
 });
 
-exports.post_game = asyncHandler(async (req, res, next) => {
+exports.post_game = asyncHandler(async (req, res) => {
   const game = new Game({ start_time: parseInt(Date.now()) });
   const savedGame = await game.save();
   res.json(savedGame._id);
 });
 
-exports.patch_time = asyncHandler(async (req, res, next) => {
+exports.patch_time = asyncHandler(async (req, res) => {
   // update game end time
   const game = await Game.findById(req.params.id).exec();
   if (game) {
@@ -38,7 +38,7 @@ exports.patch_time = asyncHandler(async (req, res, next) => {
 
 exports.patch_name = [
   body("name", "Name is empty!").trim().isLength({ min: 1, max: 20 }).escape(),
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.json(errors.array());
     const game = await Game.findById(req.params.id);
@@ -58,7 +58,7 @@ exports.patch_name = [
   }),
 ];
 
-exports.delete_games = asyncHandler(async (req, res, next) => {
+exports.delete_games = asyncHandler(async (req, res) => {
   const deletedGames = await Game.deleteMany({}).exec();
   res.json(deletedGames);
 });

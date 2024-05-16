@@ -3,12 +3,12 @@ const { body, validationResult } = require("express-validator");
 const Character = require("../models/character");
 const he = require("he");
 
-exports.get_chars = asyncHandler(async (req, res, next) => {
+exports.get_chars = asyncHandler(async (req, res) => {
   const chars = await Character.find({}, "_id name imgUrl").exec();
   res.json(chars);
 });
 
-exports.get_char_coords = asyncHandler(async (req, res, next) => {
+exports.get_char_coords = asyncHandler(async (req, res) => {
   const char = await Character.findById(req.params.id);
   let correctCoords = false;
   if (
@@ -33,7 +33,7 @@ exports.post_chars = [
     .escape(),
   body("x", "x value is required").trim().isLength({ min: 0 }).escape(),
   body("y", "y value is required").trim().isLength({ min: 0 }).escape(),
-  asyncHandler(async (req, res, next) => {
+  asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.json(errors.array());
     const char = new Character({
@@ -47,7 +47,7 @@ exports.post_chars = [
   }),
 ];
 
-exports.delete_chars = asyncHandler(async (req, res, next) => {
+exports.delete_chars = asyncHandler(async (req, res) => {
   const deletedChars = await Character.deleteMany().exec();
   res.json(deletedChars);
 });
