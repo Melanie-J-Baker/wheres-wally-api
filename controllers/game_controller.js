@@ -47,13 +47,13 @@ exports.patch_name = [
         game.player_name = req.body.name;
       }
     } else {
-      return res.json(`Couldn't find game ({id: ${req.params.id}})`);
+      return res.json({ msg: `Couldn't find game ({id: ${req.params.id}})` });
     }
     const patchedGame = await game.save();
     if (patchedGame) {
       return res.json(patchedGame);
     } else {
-      return res.json(`Couldn't find game ({id: ${req.params.id}})`);
+      return res.json({ msg: `Couldn't find game ({id: ${req.params.id}})` });
     }
   }),
 ];
